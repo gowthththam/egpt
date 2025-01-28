@@ -1,0 +1,721 @@
+html,
+body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+:root {
+    --container-width: 75vw;
+    /* Adjust this value as needed */
+}
+
+
+
+.container {
+    width: 100%;
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+    height: 88vh;
+    /* Ensure the container fills the full height of the viewport */
+    padding: 10px;
+    padding-bottom: 24px;
+}
+
+.chat-container-above {
+    display: flex;
+    flex-direction: column;
+    /* background-color: blue; */
+    /* width: 100%; Adjust this width as needed */
+    padding: 10px;
+    background-color: #fff;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+    overflow-y: auto;
+    border: 1px solid #ddd;
+    flex-grow: 1;
+    border-radius: 25px;
+    /* min-width: 78vw;
+    max-width: 78vw;
+    min-height: max-content; */
+}
+
+.chat-container {
+    display: flex;
+    flex-direction: column;
+    /* background-color: blue; */
+    /* width: 100%; Adjust this width as needed */
+    padding: 10px;
+    background-color: #fff;
+    /* box-shadow: 0 0 20px rgba(0, 0, 0, 0.1); */
+    overflow-y: auto;
+    /* border: 1px solid #ddd; */
+    flex-grow: 1;
+    border-radius: 25px;
+    /* min-width: 76.4vw;
+    max-width: 76.4vw;
+    */
+}
+
+
+.message {
+    max-width: 90%;
+    padding-left: 15px;
+    margin: 10px 0;
+    border-radius: 25px;
+    position: relative;
+    transition: all 0.3s ease;
+}
+
+.message .message-content {
+    position: relative;
+    z-index: 2;
+    font-size: 16px;
+    padding: 10px;
+    display: flex;
+}
+
+.message::before {
+    content: "";
+    position: absolute;
+    width: 0;
+    height: 0;
+    border-style: solid;
+    z-index: 1;
+}
+
+.bot {
+    align-self: flex-start;
+    background-color: #dedfe1;
+    color: rgb(9, 0, 34);
+    border-radius: 25px 25px 25px 0;
+    padding: 5px;
+
+}
+
+.bot::before {
+    top: 12px;
+    border-width: 10px 10px 10px 0;
+    border-color: transparent transparent transparent;
+    border-radius: 13px 13px 13px 77px;
+}
+
+.user {
+    align-self: flex-end;
+    background-color: #ded3f0;
+    color: rgb(9, 0, 34);
+    border-radius: 25px 25px 0 25px;
+    padding: 5px;
+
+}
+
+.user::before {
+    border-color: transparent transparent transparent;
+}
+
+.timestamp {
+    display: block;
+    text-align: right;
+    font-size: 0.8em;
+    color: white;
+}
+
+.input-area {
+    display: flex;
+    padding: 20px 20px 0px 20px;
+    background-color: #fff;
+    border-top: 1px solid #ddd;
+    border-radius: 25px;
+
+    /* max-width: 78vw; */
+    flex-direction: column;
+    min-width: 75.9vw;
+
+}
+
+
+.input-area button {
+    width: 100px;
+    padding: 12px 24px;
+    background-color: #2f1846;
+    color: white;
+    border: none;
+    border-radius: 20px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    font-size: 16px;
+}
+
+.input-area button:hover {
+    background-color: #4e2775;
+}
+
+.input-area input {
+    flex: 1;
+    padding: 12px;
+    border-radius: 20px;
+    border: 1px solid #ddd;
+    outline: none;
+    font-size: 16px;
+    margin-right: 10px;
+}
+
+
+
+.no-messages-image {
+    width: 200px;
+    height: auto;
+    margin: auto;
+    display: block;
+}
+
+.imgload {
+    height: 450px !important;
+    width: 750px !important;
+}
+
+.input-area button .icon {
+    font-size: 24px;
+    vertical-align: middle;
+}
+
+.message {
+    display: flex;
+    flex-direction: column;
+    align-items: self-end;
+    max-width: 85%;
+    margin: 5px;
+    position: relative;
+    transition: all 0.3s ease;
+    padding: 5px;
+
+}
+
+.reaction-icons {
+
+
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: flex-start;
+    padding: 0px 0px 0px 0px;
+    width: 15vh;
+    flex-wrap: nowrap;
+    color: #393041;
+    opacity: 0.3;
+    padding-right: 1.5%;
+}
+
+.reaction-icons:hover,
+i-div:hover {
+
+    /* visibility: block; */
+    opacity: 1;
+
+    /* display: ; */
+}
+
+.bot-message .message-icon {
+    /* left: -30px; */
+    border-radius: 30px;
+}
+
+.user .message-icon {
+    right: -29px;
+}
+
+.message-icon {
+    position: absolute;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    bottom: -3%;
+    flex-direction: row;
+}
+
+.message-icon i {
+    font-size: 16px;
+    color: #4a0d87;
+}
+
+
+
+.reaction-icons i.active {
+    color: #952ffb;
+}
+
+p {
+    white-space: pre-wrap;
+    font-family: inherit;
+    display: block;
+    margin-top: auto;
+    margin-bottom: auto;
+    overflow: auto;
+    font-size: .875em;
+    padding-left: 10px;
+    padding-right: 10px;
+
+
+}
+
+.loader {
+    margin-left: 2%;
+    width: 4%;
+    aspect-ratio: 4;
+    --_g: no-repeat radial-gradient(circle closest-side, #000 90%, #0000);
+    background:
+        var(--_g) 0% 50%,
+        var(--_g) 50% 50%,
+        var(--_g) 100% 50%;
+    background-size: calc(100%/3) 100%;
+    animation: l7 1s infinite linear;
+}
+
+@keyframes l7 {
+    33% {
+        background-size: calc(100%/3) 0%, calc(100%/3) 100%, calc(100%/3) 100%
+    }
+
+    50% {
+        background-size: calc(100%/3) 100%, calc(100%/3) 0%, calc(100%/3) 100%
+    }
+
+    66% {
+        background-size: calc(100%/3) 100%, calc(100%/3) 100%, calc(100%/3) 0%
+    }
+}
+
+
+
+.botimage {
+
+    max-width: 100%;
+    max-height: 100%;
+
+    object-fit: scale-down;
+}
+
+.i-div {
+    display: flex;
+    flex-direction: row;
+    padding-left: 15px;
+    justify-content: space-between;
+    align-items: flex-start;
+
+
+}
+
+
+i:hover {
+    cursor: pointer;
+}
+
+
+.fa-info-circle:hover {
+    color: #4a0d87 !important;
+    opacity: 1 !important;
+}
+
+
+.icon-clicked {
+    animation: iconGrowShrink 0.3s;
+}
+
+@keyframes iconGrowShrink {
+    0% {
+        transform: scale(1);
+    }
+
+    50% {
+        transform: scale(1.5);
+    }
+
+    100% {
+        transform: scale(1);
+    }
+}
+
+.modelimage {
+    padding: 70px;
+    display: flex;
+    align-items: center;
+    /* background-color: white; */
+}
+
+.modal-image {
+    transition: transform .2s;
+    /* Animation for zoom effect */
+    width: 100%;
+    /* Full width of its container */
+    height: auto;
+    /* Maintain aspect ratio */
+    cursor: pointer;
+    /* Indicates that the image can be interacted with */
+}
+
+.modal-image:hover {
+    transform: scale(1.5);
+    /* Zoom effect */
+}
+
+.model-name {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: small;
+    color: #9c9b9c;
+    /* margin-top: 10px;   */
+    /* text-align: center; */
+}
+
+
+.modal-dialog {
+    max-width: 300px; /* 40% smaller than the original 500px */
+}
+
+
+.modal-dialog.modal-xl {
+    position: fixed !important;
+    top: 50% !important;
+    left: 50% !important;
+    transform: translate(-50%, -55%) !important; /* Move up by adjusting translate */
+    transition: transform 0.3s ease-in-out !important;
+    width: 70% !important;
+    max-width: 800px !important;
+    padding: 100px !important;
+    padding-bottom: 5% !important;
+}
+
+
+
+
+
+
+/* Dropup container */
+.dropup {
+    position: relative;
+    display: flex;
+    /* padding: 0px; */
+    /* justify-content: center; */
+    align-items: center;
+}
+
+/* Dropup button */
+.dropup-btn {
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+    /* padding: 12px 0px; */
+    /* padding: 12px 0px; */
+}
+
+.dropup-btn:hover {
+    transform: translateY(-2px);
+    /* Lift the button slightly on hover */
+}
+
+/* Dropup content */
+.dropup-content {
+    display: none;
+    position: absolute;
+    bottom: calc(100% + 10px);
+    /* Position slightly above the button */
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #fff;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    /* Soft shadow effect */
+    padding: 8px 8px 8px 16px;
+    min-width: 180px;
+    z-index: 2;
+    /* display: flex;
+   flex-direction: column; */
+}
+
+
+
+
+
+.dropup-content.show {
+    display: flex;
+    flex-direction: column;
+}
+
+/* Dropup options */
+.dropup-option {
+    padding: 8px 8px 8px 16px;
+
+    color: #4a0d87;
+    /* Deep purple text color */
+    font-size: 16px;
+    font-weight: bold;
+    text-transform: uppercase;
+    /* Uppercase option text */
+    cursor: pointer;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.dropup-option:hover {
+    background-color: #f0f0f0;
+    /* Light background color on hover */
+    color: #652b9f;
+    /* Change text color on hover */
+}
+
+
+
+.dot-container {
+    display: flex;
+    justify-content: right;
+    align-items: center;
+    height: 30px;
+    margin-left: 15px !important;
+    background: none;
+
+}
+
+.dot {
+    width: 11px;
+    height: 11px;
+    margin: 0 5px;
+    margin-bottom: 0px !important;
+
+    background-color: #3f027c;
+    /* Color of the dots */
+    border-radius: 50%;
+    animation: dotBounce 1.3s infinite;
+}
+
+.dot:nth-child(1) {
+    animation-delay: -0.24s;
+}
+
+.dot:nth-child(2) {
+    animation-delay: -0.12s;
+}
+
+.dot:nth-child(3) {
+    animation-delay: 0;
+}
+
+@keyframes dotBounce {
+
+    0%,
+    80%,
+    100% {
+        transform: scale(0);
+    }
+
+    40% {
+        transform: scale(1);
+    }
+}
+
+
+
+
+
+.code-content {
+    background-color: #f3f0f7;
+    border-radius: 10px;
+    color: #2d002d;
+    padding: 0px;
+    width: 97%;
+    white-space: pre-wrap;
+    margin-left: 1.3%;
+    margin-right: 1.3%;
+    padding-bottom: 1%;
+
+}
+
+.code-language {
+    background-color: #211533;
+    color: #f0e9fa;
+    width: 100%;
+    height: 10%;
+    display: flex;
+    align-items: center;
+    padding-left: 5px;
+    margin-bottom: 1%;
+    justify-content: space-between;
+}
+
+
+.botimage {
+    width: 100%;
+    max-width: 300px;
+    height: auto;
+    margin: 10px auto;
+    display: block;
+}
+
+.scrollable-images {
+    max-height: 400px;
+    /* Adjust the height as needed */
+    overflow-y: auto;
+    /* Enables vertical scrolling */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    /* Centers the images if needed */
+}
+
+.image-chat-container {
+    max-height: 500px;
+    /* Set a fixed maximum height */
+    overflow-y: auto;
+    /* Enable vertical scrolling */
+    border: 1px solid #ccc;
+    /* Optional: adds a border around the image container */
+    margin: 10px;
+    padding: 10px;
+    background-color: #f9f9f9;
+    /* Light grey background */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    /* Center images horizontally */
+    gap: 10px;
+    /* Space between images */
+}
+
+
+
+/* Styles for individual messages */
+.message {
+    margin-bottom: 10px;
+    padding: 10px;
+    border-radius: 10px;
+    color: #333;
+    /* Dark grey text */
+}
+
+/* Differentiate user messages */
+.message.user {
+    align-items: flex-end;
+    background-color: #007bff;
+    /* Blue background for user messages */
+    color: white;
+    border-top-right-radius: 0;
+    /* Makes the bubble look like it's from the user */
+}
+
+/* Differentiate bot messages */
+.message.bot {
+    align-items: flex-start;
+    background-color: #e9ecef;
+    /* Light grey background for bot messages */
+    border-top-left-radius: 0;
+    /* Makes the bubble look like it's from the bot */
+}
+
+/* Styles for the message text */
+.message-text {
+    font-size: 16px;
+    line-height: 1.5;
+}
+
+/* Styles for images within messages */
+.image-container {
+    display: flex;
+    justify-content: center;
+    /* Center the image */
+    padding: 10px;
+}
+
+
+.userimage {
+    width: 100%;
+    /* Full width of the container */
+    max-width: 300px;
+    /* Maximum width of the image */
+    height: auto;
+    /* Maintain aspect ratio */
+    border-radius: 8px;
+    /* Rounded corners for the image */
+}
+
+.botimage {
+    width: 100% !important;
+    max-width: 300px !important;
+    height: auto !important;
+    margin: 10px auto !important;
+    display: block !important;
+    border-radius: 25px 25px 25px 0;
+}
+
+
+.bot {
+
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: scale-down;
+}
+
+
+.modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.modal-header-buttons {
+    display: flex;
+    align-items: center;
+}
+
+.modal-dialog.modal-xl {
+    position: fixed;
+    /* Use fixed positioning */
+    top: 50%;
+    /* Center vertically */
+    left: 50%;
+    /* Center horizontally */
+    transform: translate(-50%, -50%);
+    /* Adjust for horizontal and vertical centering */
+    transition: transform 0.3s ease-in-out;
+    /* Smooth transition for the transform */
+    width: 70%;
+    /* Reduced width */
+    max-width: 800px;
+    /* Adjust max-width as needed */
+    padding: 10px;
+    padding-bottom: 5%;
+
+}
+
+
+.modal-body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 20px;
+    overflow-y: auto;
+    /* Allows scrolling if content is too large */
+}
+
+
+.scaled-image {
+    max-width: 100%;
+    height: auto;
+    display: block;
+
+}
+
+.zoomed-in {
+    transform: scale(2);
+    /* Adjust the scale value as needed */
+    cursor: zoom-out;
+    /* Changes the cursor to indicate zoom-out action */
+}
+
+.error-image {
+    background-color: transparent !important;
+    /* Override the default background color */
+}

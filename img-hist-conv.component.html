@@ -1,0 +1,104 @@
+<div class="container">
+    <div class="chat-container-above">
+        <!-- Chat Messages Container -->
+        <div class="chat-container" *ngIf="messages.length > 0" #chatContainer>
+            <!-- Loop through messages -->
+            <div *ngFor="let message of messages" [ngClass]="{
+                'user': message.msg_type === 'User' || message.msg_type === 'user',
+                'bot': message.msg_type === 'assistant' || message.msg_type === 'Bot' || message.msg_type === 'bot',
+                'bot-message': message.msg_type === 'assistant' || message.msg_type === 'Bot' || message.msg_type === 'bot',
+                'error-image': isErrorImage(message) || isPrivacyImage(message)
+            }" style="display: flex; flex-direction: column; max-width: 85%; margin-bottom: 1%;">
+
+                <!-- User messages -->
+                <ng-container *ngIf="message.msg_type === 'User' || message.msg_type === 'user'">
+                    <div style="text-align: right; padding: 10px;">
+                        {{ message.msg }}
+                    </div>
+                </ng-container>
+
+
+                <!-- Image messages -->
+                <ng-container *ngIf="isImageResponse(message)">
+                    <div style="flex: 1; display: flex; justify-content: left;">
+                        <img [src]="message.imageUrl" alt="Chatbot Image" class="botimage" style="cursor: pointer;"
+                            [ngStyle]="{'border-radius': (isErrorImage(message) || isPrivacyImage(message)) ? '0' : '25px 25px 25px 0'}"
+                            (click)="!isErrorImage(message) && setSelectedImageUrl(message.imageUrl)"
+                            [attr.data-bs-toggle]="!isErrorImage(message)&& !isPrivacyImage(message) ? 'modal' : null"
+                            [attr.data-bs-target]="!isErrorImage(message) && !isPrivacyImage(message)? '#imageModal' : null" />
+                    </div>
+                </ng-container>
+
+
+            </div>
+
+            <!-- Modal for Image Enlargement -->
+            <div class="modal fade" id="imageModal" tabindex="-1" aria-labelledby="imageModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-xl">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="imageModalLabel">Enlarged Image</h5>
+                            <a [href]="selectedImageUrl" download="DownloadedImage" class="btn btn-primary"
+                                style="margin-left: 58%;">
+                                <i class="fa fa-download"></i> Download
+                            </a>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <img [src]="selectedImageUrl" alt="Enlarged Image" class="img-fluid modal-image">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Loading Animation -->
+            <div class="dot-container bot" *ngIf="isLoading">
+                <div class="dot"></div>
+                <div class="dot"></div>
+                <div class="dot"></div>
+            </div>
+            <div class="img">
+                <img src="../../../assets/chatbot.png" style="object-fit: none;">
+            </div>
+        </div>
+
+        <!-- No Messages Placeholder -->
+        <div class="chat-container" *ngIf="messages.length === 0">
+            <img src="../../assets/iconForNewConv.png" alt="No messages" class="no-messages-image imgload">
+        </div>
+    </div>
+
+    <div class="input-area">
+        <div style="display: flex;">
+            <div class="dropup"
+                style="border: 1px solid #bdbcbd; margin: 5px; border-radius: 10px; color: #4a0d87; display: flex; flex-direction: column; justify-content: center;"
+                #dropup>
+                <div style="background:none;" class="dropup-btn" (click)="toggleDropup()">
+                    <p style="font-size: medium;">{{modelName}} &nbsp; <i class="fa-solid fa-angle-up"></i></p>
+                </div>
+                <div class="dropup-content" [ngClass]="{ 'show': showDropup }">
+                    <ng-container *ngFor="let llm of enabledLLMs; let i = index">
+                        <label>
+                            <input type="radio" class="radiobtn" style="accent-color: #652b9f;" name="model"
+                                [value]="llm.name" [checked]="llm.name === modelName" (change)="selectModel($event)">
+                            {{ llm.name }}
+                        </label>
+                    </ng-container>
+                </div>
+            </div>
+            <input type="text" placeholder="Shoot your query here....." #inputArea (keypress)="onKeyPress($event)">
+            <div style="background:none" class="dropup-btn"
+                style="background: none; display: flex; align-items: center;">
+                <i *ngIf="isRecording" title="Stop Recording" class="fa-solid fa-microphone fa-2xl modelimage2"
+                    style="color: #5b4d60;" (click)="stopRecording()"></i>
+                <i *ngIf="!isRecording" title="Start Recording" class="fa-solid fa-microphone-slash fa-2xl modelimage2"
+                    style="color: #5b4d60;" (click)="startRecording()"></i>
+            </div>
+            <button [disabled]="inputArea.value.trim() === '' || isLoading" (click)="sendMessage()" class="sendbutton">
+                <i class="fas fa-paper-plane icon"></i>
+            </button>
+        </div>
+        <div class="model-name">
+            You are currently using {{modelName}}. Please note that the responses may be inaccurate.
+        </div>
+    </div>
+</div>
